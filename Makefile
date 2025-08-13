@@ -1,4 +1,4 @@
-NAME        =   philosophers
+NAME        =   philo
 CC          =   cc
 CFLAGS      =   -g3 -O0 -Wall -Wextra -Werror
 
