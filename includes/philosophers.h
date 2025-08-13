@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 21:14:50 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/13 21:50:51 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/13 22:21:29 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,8 @@ void	init_data(t_data *data, int ac, char **av);
 void	init_philos(t_data *data);
 void	*routine(void *arg);
 void	create_threads(t_data *data);
+void	philo_eat(t_data *data, t_philo *philo);
+void	philo_sleeping(t_data *data, t_philo *philo);
+void	is_philo_dead(t_data *data, t_philo *philo);
 
 #endif

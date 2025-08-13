@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 15:42:09 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/13 22:17:37 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/13 22:27:13 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	philo_eat(t_data *data, t_philo *philo)
 
 	current_time = time_in_ms(data);
 	philo->state = EATING;
-	printf("%ld Philosopher %d has taken a fork\n", current_time, philo->id);
-	printf("%ld Philosopher %d is eating\n", current_time, philo->id);
+	printf("%ld %d has taken a fork\n", current_time, philo->id);
+	printf("%ld %d is eating\n", current_time, philo->id);
 	usleep(data->time_to_eat * 1000);
 	philo->last_meal_time = time_in_ms(data);
 	philo->meals_eaten++;
@@ -83,7 +83,7 @@ void	philo_sleeping(t_data *data, t_philo *philo)
 	long	current_time;
 
 	current_time = time_in_ms(data);
-	printf("%ld Philosopher %d is sleeping\n", current_time, philo->id);
+	printf("%ld %d is sleeping\n", current_time, philo->id);
 	philo->state = SLEEPING;
 	usleep(data->time_to_sleep * 1000);
 }
@@ -106,6 +106,7 @@ void	*routine(void *arg)
 	t_data	*data;
 	int		left;
 	int		right;
+	long	current_time;
 
 	philo = (t_philo *)arg;
 	data = philo->data;
@@ -115,6 +116,8 @@ void	*routine(void *arg)
 	{
 		is_philo_dead(data, philo);
 		philo->state = THINKING;
+		current_time = time_in_ms(data);
+		printf("%ld %d is thinking\n", current_time, philo->id);
 		pthread_mutex_lock(&data->forks[left]);
 		pthread_mutex_lock(&data->forks[right]);
 		philo_eat(data, philo);
