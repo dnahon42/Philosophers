@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 16:52:17 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/15 16:54:19 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/15 20:27:57 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,29 @@ int	ft_isstring(char *str)
 		if ((ft_isdigit(str[i])) == 1)
 			i++;
 		else
+			return (1);
+	}
+	return (0);
+}
+
+void	t(int a)
+{
+	(void)a;
+}
+
+int	verif_args(int ac, char **av)
+{
+	if (ft_isstring(av[1]) == 1)
+		return (1);
+	if (ft_isstring(av[2]) == 1)
+		return (1);
+	if (ft_isstring(av[3]) == 1)
+		return (1);
+	if (ft_isstring(av[4]) == 1)
+		return (1);
+	if (ac == 6)
+	{
+		if (ft_isstring(av[5]) == 1)
 			return (1);
 	}
 	return (0);

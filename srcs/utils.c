@@ -6,17 +6,18 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 22:25:37 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/15 16:31:19 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/15 19:17:27 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+#include <limits.h>
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	nb;
-	int	i;
-	int	signe;
+	long	nb;
+	int		i;
+	int		signe;
 
 	nb = 0;
 	i = 0;
@@ -32,6 +33,8 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = nb * 10 + (str[i] - '0');
+		if (nb > INT_MAX || nb * signe < INT_MIN)
+			return (LONG_MAX);
 		i++;
 	}
 	return (nb * signe);
