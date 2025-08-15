@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sleeping.c                                         :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 22:29:24 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/15 16:04:05 by dnahon           ###   ########.fr       */
+/*   Created: 2025/08/15 16:52:17 by dnahon            #+#    #+#             */
+/*   Updated: 2025/08/15 16:54:19 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	philo_sleeping(t_data *data, t_philo *philo)
+int	ft_isdigit(int c)
 {
-	print_message(data, philo, "is sleeping");
-	ft_usleep(data, data->time_to_sleep);
+	return ((c >= '0' && c <= '9'));
+}
+
+int	ft_isstring(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if ((ft_isdigit(str[i])) == 1)
+			i++;
+		else
+			return (1);
+	}
+	return (0);
 }

@@ -7,7 +7,7 @@ RM          =   rm -f
 SRC_DIR     =   ./srcs
 SRC         =   ./srcs/eating.c ./srcs/init.c ./srcs/main.c \
 				./srcs/monitoring.c ./srcs/routines.c \
-				./srcs/sleeping.c ./srcs/utils.c \
+				./srcs/sleeping.c ./srcs/utils.c ./srcs/utils2.c \
 
 INCLUDES    =   ./includes/philosophers.h
 

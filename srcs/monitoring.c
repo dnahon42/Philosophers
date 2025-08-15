@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 22:30:00 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/14 23:37:06 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/15 15:44:51 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,18 @@ int	check_eat_requirements(t_data *data, t_philo *philo)
 
 	if (data->eat_requirement == -1)
 		return (0);
-	i = -1;
-	while (++i < data->nb_philo)
+	pthread_mutex_lock(&data->meal_mutex);
+	i = 0;
+	while (i < data->nb_philo)
 	{
-		pthread_mutex_lock(&data->meal_mutex);
 		if (philo[i].meals_eaten < data->eat_requirement)
 		{
 			pthread_mutex_unlock(&data->meal_mutex);
 			return (0);
 		}
-		pthread_mutex_unlock(&data->meal_mutex);
+		i++;
 	}
+	pthread_mutex_unlock(&data->meal_mutex);
 	return (1);
 }
 
@@ -65,7 +66,7 @@ void	*monitor(void *arg)
 			pthread_mutex_unlock(&data->meal_mutex);
 		}
 		if (check_eat_requirements(data, data->philos) == 1)
-			return (NULL);
+			return (data->met_requirements = 1, NULL);
 		usleep(1000);
 	}
 	return (NULL);

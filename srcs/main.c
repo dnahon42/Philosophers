@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 15:42:09 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/14 23:39:34 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/15 17:05:34 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	cleanup(t_data *data)
 {
 	int	i;
+
 	i = 0;
 	while (i < data->nb_philo)
 		pthread_mutex_destroy(&data->forks[i++]);
@@ -29,11 +30,17 @@ void	cleanup(t_data *data)
 int	main(int ac, char **av)
 {
 	t_data	*data;
+	int		init_data_value;
 
 	if (ac == 5 || ac == 6)
 	{
 		data = malloc(sizeof(t_data));
-		init_data(data, ac, av);
+		init_data_value = init_data(data, ac, av);
+		if (init_data_value == 1)
+			return (free(data), write(2, "Invalid Arguments\n", 18), 1);
+		else if (init_data_value == 2)
+			return (free(data), write(2, "Too many philosophers (max is 200)\n",
+					36), 1);
 		init_philos(data);
 		create_threads(data);
 		cleanup(data);

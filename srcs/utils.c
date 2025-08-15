@@ -6,16 +6,11 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 22:25:37 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/14 23:17:31 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/15 16:31:19 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-void	t(int a)
-{
-	(void)a;
-}
 
 int	ft_atoi(const char *str)
 {
@@ -63,14 +58,20 @@ void	ft_usleep(t_data *data, long milliseconds)
 
 void	print_message(t_data *data, t_philo *philo, const char *message)
 {
-	pthread_mutex_lock(&data->death_mutex);
-	if (data->someone_died)
-	{
-		pthread_mutex_unlock(&data->death_mutex);
+	if (check_death_and_requirements(data) == 1)
 		return ;
-	}
-	pthread_mutex_unlock(&data->death_mutex);
 	pthread_mutex_lock(&data->print_mutex);
 	printf("%ld %d %s\n", time_in_ms(data), philo->id + 1, message);
 	pthread_mutex_unlock(&data->print_mutex);
 }
+
+// void	print_message_debug(t_data *data, t_philo *philo, const char *message)
+// {
+// 	if (check_death_and_requirements(data) == 1)
+// 		return ;
+// 	pthread_mutex_unlock(&data->death_mutex);
+// 	pthread_mutex_lock(&data->print_mutex);
+// 	printf("%ld %d %s Meals eaten : %d\n", time_in_ms(data), philo->id + 1,
+// 		message, philo->meals_eaten + 1);
+// 	pthread_mutex_unlock(&data->print_mutex);
+// }
