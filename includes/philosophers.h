@@ -6,7 +6,7 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 21:14:50 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/15 20:29:56 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/16 16:29:33 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ struct s_data
 	t_philo				*philos;
 };
 
-void	take_forks(t_data *data, t_philo *philo);
+void	take_forks_even(t_data *data, t_philo *philo);
+void	take_forks_odd(t_data *data, t_philo *philo);
 void	philo_eat(t_data *data, t_philo *philo);
 int		init_vars(t_data *data, int ac, char **av);
 int		init_data(t_data *data, int ac, char **av);

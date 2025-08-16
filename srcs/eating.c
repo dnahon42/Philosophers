@@ -6,13 +6,13 @@
 /*   By: dnahon <dnahon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 22:28:14 by dnahon            #+#    #+#             */
-/*   Updated: 2025/08/16 15:00:02 by dnahon           ###   ########.fr       */
+/*   Updated: 2025/08/16 16:29:17 by dnahon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	take_forks(t_data *data, t_philo *philo)
+void	take_forks_even(t_data *data, t_philo *philo)
 {
 	int	left;
 	int	right;
@@ -35,6 +35,29 @@ void	take_forks(t_data *data, t_philo *philo)
 	}
 }
 
+void	take_forks_odd(t_data *data, t_philo *philo)
+{
+	int	left;
+	int	right;
+
+	left = philo->id;
+	right = (philo->id + 1) % data->nb_philo;
+	if (check_death_and_requirements(data) == 1)
+		return ;
+	pthread_mutex_lock(&data->forks[right]);
+	print_message(data, philo, "has taken a fork");
+	if (check_death_and_requirements(data) == 1)
+		return (pthread_mutex_unlock(&data->forks[right]), (void)0);
+	pthread_mutex_lock(&data->forks[left]);
+	print_message(data, philo, "has taken a fork");
+	if (check_death_and_requirements(data) == 1)
+	{
+		pthread_mutex_unlock(&data->forks[right]);
+		pthread_mutex_unlock(&data->forks[left]);
+		return ;
+	}
+}
+
 void	philo_eat(t_data *data, t_philo *philo)
 {
 	int	left;
@@ -44,7 +67,10 @@ void	philo_eat(t_data *data, t_philo *philo)
 	right = (philo->id + 1) % data->nb_philo;
 	if (check_death_and_requirements(data) == 1)
 		return ;
-	take_forks(data, philo);
+	if (philo->id % 2 == 0)
+		take_forks_even(data, philo);
+	else
+		take_forks_odd(data, philo);
 	if (check_death_and_requirements(data) == 1)
 		return ;
 	pthread_mutex_lock(&data->meal_mutex);
